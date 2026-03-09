@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html style="background-color: #3f3f3f;" lang="en">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+</head>
+<body>
+    <video style="display: block; margin: auto;" src="recursos/video_1.mp4" id="1" type="video/mp4" width="1080" height="640" autoplay="true" controls></video>
+    <br>
+    <br>
+    <button onclick="velocidad(0)" type="button">
+    <img src="recursos/Pause.jpg" width="50px" height="50px" alt="pausar"></button>
+    <button onclick="velocidad(1)" type="button">
+    <img src="recursos/Play.jpg" width="50px" height="50px" alt="play"></button>
+    <button onclick="velocidad(0.5)" type="button">1/2</button>
+    <button onclick="velocidad(2)" type="button">x2</button>
+    <button onclick="velocidad(4)" type="button">x4</button>
+    <button onclick="pantalla_completa()" type="button">fullscreen</button>
+    <button onclick="sonido_off()" type="button">sonido off</button>
+    <button onclick="sonido_on()" type="button">sonido on</button>
+<form action="" name="bb" onsubmit="velocidad(document.forms.bb.velocidad_value.value); return false;">
+        <input type="text" size="3" value="1" name="velocidad_value">
+        <input type="submit" value="cambiar velocidad">
+</form>
+        <script>  
+        var bb = document.getElementById("1");
+        function velocidad(a){
+            bb.playbackRate = a;
+        }
+        function pantalla_completa(){
+            bb.requestFullscreen();
+        }
+        function sonido_off(){
+            bb.muted = true;
+        }
+        function sonido_on(){
+            bb.muted = false;
+        }
+    </script>
+</body>
+</html>
