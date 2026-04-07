@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var canvas, contexto;
+        function inciar_canvas(ancho, alto) {
+            canvas = document.createElement("canvas");
+            document.body.appendChild(canvas);
+            canvas.width = ancho;
+            canvas.height = alto;
+            contexto = canvas.getContext("2d");
+        }
+        function rectangulo_relleno(x1, y1, ancho, alto, rojo, verde, azul, trans) {
+            contexto.fillStyle = 'rgba(' + Math.floor(rojo) + ',' + Math.floor(verde) + ',' + Math.floor(azul) + ',' + trans + ')';
+            contexto.fillRect(x1, y1, ancho, alto);
+        }
+        function triangulo_contorno(x1, y1, ancho, alto, rojo, verde, azul, trans) {
+            contexto.strokeStyle = 'rgba(' + Math.floor(rojo) + ',' + Math.floor(verde) + ',' + Math.floor(azul) + ',' + trans + ')';
+            contexto.beginPath();
+            contexto.moveTo(x1, y1);
+            contexto.lineTo(x1 + ancho, y1 + alto);
+            contexto.lineTo(x1, y1 + alto);
+            contexto.lineTo(x1, y1);
+            contexto.closePath();
+            contexto.stroke();
+        }
+        function circulo_relleno(x1, y1, radio, rojo, verde, azul, trans) {
+            contexto.fillStyle = 'rgba(' + Math.floor(rojo) + ',' + Math.floor(verde) + ',' + Math.floor(azul) + ',' + trans + ')';
+            contexto.beginPath();
+            contexto.arc(x1, y1, radio, 0, Math.PI * 2, true);
+            contexto.closePath();
+            contexto.fill();
+        }
+
+        function media_luna(x, y, radio, rojo, verde, azul, trans) {
+            contexto.fillStyle = 'rgba(' + Math.floor(rojo) + ',' + Math.floor(verde) + ',' + Math.floor(azul) + ',' + trans + ')';
+            contexto.beginPath();
+            contexto.arc(x, y, radio, Math.PI * 0.5, Math.PI * 1.5, false);
+            contexto.arc(x + (radio * 0.5), y, radio * 0.8, Math.PI * 1.5, Math.PI * 0.5, true);
+            contexto.closePath();
+            contexto.fill();
+        }
+
+        function estrella_rellena(cx, cy, picos, radioExterior, radioInterior, rojo, verde, azul, trans) {
+            contexto.fillStyle = 'rgba(' + Math.floor(rojo) + ',' + Math.floor(verde) + ',' + Math.floor(azul) + ',' + trans + ')';
+            var anguloRotacion = Math.PI / 2 * 3;
+            var x = cx;
+            var y = cy;
+            var pasoAngulo = Math.PI / picos;
+
+            contexto.beginPath();
+            contexto.moveTo(cx, cy - radioExterior);
+            for (var i = 0; i < picos; i++) {
+                x = cx + Math.cos(anguloRotacion) * radioExterior;
+                y = cy + Math.sin(anguloRotacion) * radioExterior;
+                contexto.lineTo(x, y);
+                anguloRotacion += pasoAngulo;
+
+                x = cx + Math.cos(anguloRotacion) * radioInterior;
+                y = cy + Math.sin(anguloRotacion) * radioInterior;
+                contexto.lineTo(x, y);
+                anguloRotacion += pasoAngulo;
+            }
+            contexto.closePath();
+            contexto.fill();
+        }
+
+        var ancho = 2400;
+        var alto = 2400;
+
+        inciar_canvas(ancho, alto);
+
+        var i;
+        for (i = 0; i < 255; i++) {
+            rectangulo_relleno(
+                Math.round(Math.random() * ancho),
+                Math.round(Math.random() * alto),
+                Math.round(Math.random() * 200) + 50,
+                Math.round(Math.random() * 200) + 50,
+                Math.round(Math.random() * 200) + 30,
+                Math.round(Math.random() * 200) + 30,
+                Math.round(Math.random() * 200) + 30,
+                Math.random() 
+            );
+        }
+        for (i = 0; i < 255; i++) {
+            circulo_relleno(
+                Math.round(Math.random() * ancho),
+                Math.round(Math.random() * alto),
+                Math.round(Math.random() * 50) + 15,
+                Math.round(Math.random() * 255),
+                Math.round(Math.random() * 255),
+                Math.round(Math.random() * 255),
+                Math.random()
+            )
+        }
+        for (i = 0; i < 255; i++) {
+            triangulo_contorno(
+                Math.round(Math.random() * ancho),
+                Math.round(Math.random() * alto),
+                Math.round(Math.random() * 200) + 50,
+                Math.round(Math.random() * 200) + 50,
+                Math.round(Math.random() * 255),
+                Math.round(Math.random() * 255),
+                Math.round(Math.random() * 255),
+                Math.random()
+            );
+        }
+
+        for (var i = 0; i < 180; i++) {
+            var radioExt = Math.random() * 40 + 20;
+            estrella_rellena(
+                Math.random() * ancho, 
+                Math.random() * alto,
+                5, 
+                radioExt,
+                radioExt / 2,
+                Math.random() * 255, 
+                Math.random() * 255, 
+                Math.random() * 255,
+                Math.random()
+            );
+        }
+
+        for (var i = 0; i < 50; i++) {
+            media_luna(
+                Math.random() * ancho, 
+                Math.random() * alto, 
+                40,              
+                255, 255, 100,   
+                1                
+            );
+        }
+    </script>
+</body>
+</html>
